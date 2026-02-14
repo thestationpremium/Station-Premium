@@ -79,6 +79,10 @@
             height: 100%; 
             border: none; 
             background: #000;
+            /* Filtros de melhoria de qualidade visual */
+            filter: contrast(1.1) brightness(1.05) saturate(1.2);
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
         }
 
         .footer { margin-top: 80px; text-align: center; padding: 40px; color: var(--text-dim); font-size: 0.8rem; }
@@ -91,37 +95,22 @@
 
         <div class="section-title">Cinema & Séries</div>
         <div class="grid-channels">
-            
-            <div class="card cinema" onclick="openPlayer('https://archive.org/embed/zootopia.-2.2025-pt-')">
-                <div class="thumb-container">
-                    <img src="https://iili.io/q9xtSfe.png" class="lang-badge">
-                    <img src="https://iili.io/q9xZ7Z7.webp" class="movie-thumb">
-                </div>
+            <div class="card cinema" onclick="openPlayer('https://mixdrop.top/e/q191gdx8fe0omz')">
+                <div class="thumb-container"><img src="https://iili.io/q9xtSfe.png" class="lang-badge"><img src="https://iili.io/q9xZ7Z7.webp" class="movie-thumb"></div>
                 <b>Zootopia 2</b><span>SUPER PREMIUM</span>
             </div>
-
-            <div class="card cinema" onclick="openPlayer('https://archive.org/embed/the-sponge-bob-movie-search-for-square-pants-2025-pt')">
-                <div class="thumb-container">
-                    <img src="https://iili.io/q9xtSfe.png" class="lang-badge">
-                    <img src="https://iili.io/q9xtBAQ.webp" class="movie-thumb">
-                </div>
+            <div class="card cinema" onclick="openPlayer('https://mixdrop.top/e/7kpkglv6td4rew1')">
+                <div class="thumb-container"><img src="https://iili.io/q9xtSfe.png" class="lang-badge"><img src="https://iili.io/q9xtBAQ.webp" class="movie-thumb"></div>
                 <b>SpongeBob: O Filme</b><span>SUPER PREMIUM</span>
             </div>
-
-            <div class="card cinema" onclick="openPlayer('https://archive.org/embed/the-wrecking-crew-2026_202602')">
-                <div class="thumb-container">
-                    <img src="https://iili.io/q95KstV.webp" class="movie-thumb">
-                </div>
+            <div class="card cinema" onclick="openPlayer('https://mixdrop.top/e/vkzkedogi41rn')">
+                <div class="thumb-container"><img src="https://iili.io/q95KstV.webp" class="movie-thumb"></div>
                 <b>The Wrecking Crew</b><span>SUPER PREMIUM</span>
             </div>
-
-            <div class="card cinema" onclick="openPlayer('https://archive.org/embed/anaconda-2025-2')">
-                <div class="thumb-container">
-                    <img src="https://iili.io/q954K9j.webp" class="movie-thumb">
-                </div>
+            <div class="card cinema" onclick="openPlayer('https://mixdrop.top/e/679768zquv4gjv')">
+                <div class="thumb-container"><img src="https://iili.io/q954K9j.webp" class="movie-thumb"></div>
                 <b>Anaconda (2025)</b><span>SUPER PREMIUM</span>
             </div>
-
         </div>
 
         <div class="section-title">Sport TV</div>
@@ -155,45 +144,37 @@
             <iframe id="videoFrame" 
                 src="" 
                 allow="autoplay; fullscreen; encrypted-media; picture-in-picture" 
-                allowfullscreen="true">
+                allowfullscreen="true" 
+                importance="high"
+                loading="eager"
+                playsinline>
             </iframe>
         </div>
     </div>
 
     <script>
-        // Bloqueia tentativas de abrir novas janelas (popups)
+        /* Desativa popups agressivos de sites de stream */
         window.open = function() { return null; };
+        window.alert = function() { return true; };
 
         function openPlayer(url) {
             const frame = document.getElementById('videoFrame');
             const shield = document.getElementById('shield');
-            const player = document.getElementById('videoPlayer');
-            
-            frame.src = ''; // Limpa o frame anterior
-            
-            // Ativa o shield apenas para links externos (desporto). 
-            // Para Archive.org (filmes) o shield não é necessário, podes clicar direto.
-            if(url.includes('archive.org')) {
-                shield.style.display = 'none';
-            } else {
-                shield.style.display = 'block';
-            }
-
+            frame.src = ''; 
+            shield.style.display = 'block'; 
             frame.src = url;
-            player.style.display = 'flex';
-            document.body.style.overflow = 'hidden'; // Impede scroll ao ver filme
+            document.getElementById('videoPlayer').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
         }
 
         function closePlayer() {
             const frame = document.getElementById('videoFrame');
-            const player = document.getElementById('videoPlayer');
-            
-            frame.src = 'about:blank'; // Mata o áudio do vídeo ao fechar
-            player.style.display = 'none';
+            frame.src = 'about:blank'; 
+            document.getElementById('videoPlayer').style.display = 'none';
             document.body.style.overflow = 'auto';
         }
 
-        // Bloqueia F12 e Ver Código Fonte
+        /* Anti-inspeção básico */
         document.onkeydown = function(e) {
             if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) || (e.ctrlKey && e.keyCode == 85)) {
                 return false;
