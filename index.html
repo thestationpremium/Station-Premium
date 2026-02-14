@@ -29,6 +29,8 @@
             background-image: radial-gradient(circle at 10% 20%, rgba(90, 0, 255, 0.15) 0%, transparent 40%),
                               radial-gradient(circle at 90% 80%, rgba(255, 0, 0, 0.1) 0%, transparent 40%);
             color: var(--text-main); font-family: 'Inter', sans-serif; min-height: 100vh; padding: 40px 20px;
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
         }
 
         .container { max-width: 1000px; margin: 0 auto; }
@@ -44,6 +46,7 @@
         .card { 
             background: var(--surface); backdrop-filter: blur(10px); border: 1px solid var(--glass-border); border-radius: 16px; 
             padding: 15px; cursor: pointer; transition: all 0.3s ease; color: white; text-decoration: none; display: flex; flex-direction: column;
+            will-change: transform;
         }
         .card:hover { transform: translateY(-5px); border-color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.08); }
         .card.cinema:hover { border-bottom: 4px solid var(--cinema-color); }
@@ -55,49 +58,27 @@
         .card span { font-size: 0.7rem; color: var(--text-dim); font-weight: 800; text-transform: uppercase; }
 
         .thumb-container { position: relative; width: 100%; margin-bottom: 12px; }
-        .lang-badge { position: absolute; top: 8px; left: 8px; width: 50px; z-index: 2; }
+        .lang-badge { position: absolute; top: 8px; left: 8px; width: 50px; z-index: 2; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5)); }
         .movie-thumb { width: 100%; height: 260px; background: #111; border-radius: 10px; object-fit: cover; display: block; }
 
-        /* PLAYER MODAL */
         #videoPlayer {
             display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%;
-            background: #000; align-items: center; justify-content: center;
+            background: rgba(0,0,0,0.98); align-items: center; justify-content: center;
         }
+        .modal-container { width: 95%; max-width: 1100px; height: 85vh; position: relative; background: #000; border-radius: 12px; overflow: hidden; border: 1px solid var(--glass-border); }
         
-        .modal-container { 
-            width: 100%; 
-            height: 100%; 
-            position: relative; 
-            background: #000; 
-            overflow: hidden; 
+        .iframe-shield {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 10001; background: transparent; cursor: pointer;
         }
 
-        .video-wrapper {
-            position: absolute;
-            top: 0; 
-            left: 0;
-            width: 100%;
-            height: 100%; 
-            transition: all 0.2s ease;
-        }
-
+        .close-btn { position: absolute; top: 15px; right: 15px; background: #e61e25; color: #fff; padding: 8px 15px; border-radius: 5px; cursor: pointer; z-index: 10002; font-weight: bold; }
+        
         iframe { 
             width: 100%; 
             height: 100%; 
             border: none; 
-        }
-
-        .close-btn { 
-            position: absolute; 
-            top: 25px; 
-            right: 25px; 
-            background: #e61e25; 
-            color: #fff; 
-            padding: 10px 20px; 
-            border-radius: 5px; 
-            cursor: pointer; 
-            z-index: 10005; 
-            font-weight: bold;
+            background: #000;
         }
 
         .footer { margin-top: 80px; text-align: center; padding: 40px; color: var(--text-dim); font-size: 0.8rem; }
@@ -110,6 +91,7 @@
 
         <div class="section-title">Cinema & Séries</div>
         <div class="grid-channels">
+            
             <div class="card cinema" onclick="openPlayer('https://archive.org/embed/zootopia.-2.2025-pt-')">
                 <div class="thumb-container">
                     <img src="https://iili.io/q9xtSfe.png" class="lang-badge">
@@ -127,30 +109,35 @@
             </div>
 
             <div class="card cinema" onclick="openPlayer('https://archive.org/embed/the-wrecking-crew-2026_202602')">
-                <div class="thumb-container"><img src="https://iili.io/q95KstV.webp" class="movie-thumb"></div>
+                <div class="thumb-container">
+                    <img src="https://iili.io/q95KstV.webp" class="movie-thumb">
+                </div>
                 <b>The Wrecking Crew</b><span>SUPER PREMIUM</span>
             </div>
 
             <div class="card cinema" onclick="openPlayer('https://archive.org/embed/anaconda-2025-2')">
-                <div class="thumb-container"><img src="https://iili.io/q954K9j.webp" class="movie-thumb"></div>
+                <div class="thumb-container">
+                    <img src="https://iili.io/q954K9j.webp" class="movie-thumb">
+                </div>
                 <b>Anaconda (2025)</b><span>SUPER PREMIUM</span>
             </div>
+
         </div>
 
         <div class="section-title">Sport TV</div>
         <div class="grid-channels">
-            <div class="card sporttv" onclick="openPlayer('https://sportzonline.click/channels/pt/sporttv1.php')"><b>Sport TV 1</b><span>Premium Access</span></div>
-            <div class="card sporttv" onclick="openPlayer('https://sportzonline.click/channels/pt/sporttv2.php')"><b>Sport TV 2</b><span>Premium Access</span></div>
-            <div class="card sporttv" onclick="openPlayer('https://sportzonline.click/channels/pt/sporttv3.php')"><b>Sport TV 3</b><span>Premium Access</span></div>
-            <div class="card sporttv" onclick="openPlayer('https://sportzonline.click/channels/pt/sporttv4.php')"><b>Sport TV 4</b><span>Premium Access</span></div>
-            <div class="card sporttv" onclick="openPlayer('https://sportzonline.click/channels/pt/sporttv5.php')"><b>Sport TV 5</b><span>Premium Access</span></div>
+            <div class="card sporttv" onclick="openPlayer('https://sportzonline.click/channels/pt/sporttv1.php')"><b>Sport TV 1</b><span>Premium</span></div>
+            <div class="card sporttv" onclick="openPlayer('https://sportzonline.click/channels/pt/sporttv2.php')"><b>Sport TV 2</b><span>Premium</span></div>
+            <div class="card sporttv" onclick="openPlayer('https://sportzonline.click/channels/pt/sporttv3.php')"><b>Sport TV 3</b><span>Premium</span></div>
+            <div class="card sporttv" onclick="openPlayer('https://sportzonline.click/channels/pt/sporttv4.php')"><b>Sport TV 4</b><span>Premium</span></div>
+            <div class="card sporttv" onclick="openPlayer('https://sportzonline.click/channels/pt/sporttv5.php')"><b>Sport TV 5</b><span>Premium</span></div>
         </div>
 
-        <div class="section-title">DAZN / Eleven Sports</div>
+        <div class="section-title">Eleven Sports</div>
         <div class="grid-channels">
-            <div class="card eleven" onclick="openPlayer('https://sportzonline.click/channels/pt/eleven1.php')"><b>Eleven 1</b><span>Premium Access</span></div>
-            <div class="card eleven" onclick="openPlayer('https://sportzonline.click/channels/pt/eleven2.php')"><b>Eleven 2</b><span>Premium Access</span></div>
-            <div class="card eleven" onclick="openPlayer('https://sportzonline.click/channels/pt/eleven3.php')"><b>Eleven 3</b><span>Premium Access</span></div>
+            <div class="card eleven" onclick="openPlayer('https://sportzonline.click/channels/pt/eleven1.php')"><b>Eleven 1</b><span>Premium</span></div>
+            <div class="card eleven" onclick="openPlayer('https://sportzonline.click/channels/pt/eleven2.php')"><b>Eleven 2</b><span>Premium</span></div>
+            <div class="card eleven" onclick="openPlayer('https://sportzonline.click/channels/pt/eleven3.php')"><b>Eleven 3</b><span>Premium</span></div>
         </div>
 
         <div class="section-title">Clubes e Exclusivos</div>
@@ -164,45 +151,49 @@
     <div id="videoPlayer">
         <div class="modal-container">
             <div class="close-btn" onclick="closePlayer()">FECHAR X</div>
-            <div class="video-wrapper">
-                <iframe id="videoFrame" src="" 
-                        sandbox="allow-forms allow-pointer-lock allow-same-origin allow-scripts allow-top-navigation" 
-                        allow="autoplay; fullscreen" allowfullscreen>
-                </iframe>
-            </div>
+            <div id="shield" class="iframe-shield" onclick="this.style.display='none'"></div>
+            <iframe id="videoFrame" 
+                src="" 
+                allow="autoplay; fullscreen; encrypted-media; picture-in-picture" 
+                allowfullscreen="true">
+            </iframe>
         </div>
     </div>
 
     <script>
+        // Bloqueia tentativas de abrir novas janelas (popups)
+        window.open = function() { return null; };
+
         function openPlayer(url) {
             const frame = document.getElementById('videoFrame');
+            const shield = document.getElementById('shield');
             const player = document.getElementById('videoPlayer');
-            const wrapper = document.querySelector('.video-wrapper');
             
-            // Lógica de corte: Se for Archive (filme), sobe o vídeo para esconder o título
+            frame.src = ''; // Limpa o frame anterior
+            
+            // Ativa o shield apenas para links externos (desporto). 
+            // Para Archive.org (filmes) o shield não é necessário, podes clicar direto.
             if(url.includes('archive.org')) {
-                wrapper.style.top = '-45px';
-                wrapper.style.height = 'calc(100% + 90px)';
+                shield.style.display = 'none';
             } else {
-                // Se for desporto, mostra o ecrã total normal
-                wrapper.style.top = '0';
-                wrapper.style.height = '100%';
+                shield.style.display = 'block';
             }
 
             frame.src = url;
             player.style.display = 'flex';
-            document.body.style.overflow = 'hidden';
+            document.body.style.overflow = 'hidden'; // Impede scroll ao ver filme
         }
 
         function closePlayer() {
             const frame = document.getElementById('videoFrame');
             const player = document.getElementById('videoPlayer');
-            frame.src = 'about:blank';
+            
+            frame.src = 'about:blank'; // Mata o áudio do vídeo ao fechar
             player.style.display = 'none';
             document.body.style.overflow = 'auto';
         }
 
-        // Bloqueio de teclas de inspeção
+        // Bloqueia F12 e Ver Código Fonte
         document.onkeydown = function(e) {
             if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) || (e.ctrlKey && e.keyCode == 85)) {
                 return false;
