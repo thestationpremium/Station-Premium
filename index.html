@@ -42,7 +42,6 @@
 
         .grid-channels { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 20px; }
 
-        /* ESTILO DOS CARDS ORIGINAL */
         .card { 
             background: var(--surface); backdrop-filter: blur(10px); border: 1px solid var(--glass-border); border-radius: 16px; 
             padding: 15px; cursor: pointer; transition: all 0.3s ease; color: white; text-decoration: none; display: flex; flex-direction: column;
@@ -61,14 +60,12 @@
         .lang-badge { position: absolute; top: 8px; left: 8px; width: 50px; z-index: 2; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5)); }
         .movie-thumb { width: 100%; height: 260px; background: #111; border-radius: 10px; object-fit: cover; display: block; }
 
-        /* PLAYER OVERLAY */
         #videoPlayer {
             display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.98); align-items: center; justify-content: center;
         }
         .modal-container { width: 95%; max-width: 1100px; height: 85vh; position: relative; background: #000; border-radius: 12px; overflow: hidden; border: 1px solid var(--glass-border); }
         
-        /* SHIELD ANTI-POPUP */
         .iframe-shield { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10001; background: transparent; cursor: pointer; }
 
         .close-btn { position: absolute; top: 15px; right: 15px; background: #e61e25; color: #fff; padding: 8px 15px; border-radius: 5px; cursor: pointer; z-index: 10002; font-weight: bold; }
@@ -84,13 +81,14 @@
 
         <div class="section-title">Cinema & Séries</div>
         <div class="grid-channels">
-            <div class="card cinema" onclick="openPlayer('https://mixdrop.top/e/q191gdx8fe0omz')">
+            <div class="card cinema" onclick="openPlayer('https://archive.org/embed/zootopia.-2.2025-pt_202602')">
                 <div class="thumb-container">
                     <img src="https://iili.io/q9xtSfe.png" class="lang-badge">
                     <img src="https://iili.io/q9xZ7Z7.webp" class="movie-thumb">
                 </div>
                 <b>Zootopia 2</b><span>SUPER PREMIUM</span>
             </div>
+
             <div class="card cinema" onclick="openPlayer('https://mixdrop.top/e/7kpkglv6td4rew1')">
                 <div class="thumb-container">
                     <img src="https://iili.io/q9xtSfe.png" class="lang-badge">
@@ -98,12 +96,14 @@
                 </div>
                 <b>SpongeBob: O Filme</b><span>SUPER PREMIUM</span>
             </div>
+
             <div class="card cinema" onclick="openPlayer('https://mixdrop.top/e/vkzkedogi41rn')">
                 <div class="thumb-container">
                     <img src="https://iili.io/q95KstV.webp" class="movie-thumb">
                 </div>
                 <b>The Wrecking Crew</b><span>SUPER PREMIUM</span>
             </div>
+
             <div class="card cinema" onclick="openPlayer('https://mixdrop.top/e/679768zquv4gjv')">
                 <div class="thumb-container">
                     <img src="https://iili.io/q954K9j.webp" class="movie-thumb">
@@ -145,7 +145,6 @@
     </div>
 
     <script>
-        // Bloqueio de popups a nível de window
         window.open = function() { return null; };
 
         function openPlayer(url) {
@@ -163,7 +162,6 @@
             document.body.style.overflow = 'auto';
         }
 
-        // Prevenção de inspeção básica
         document.onkeydown = function(e) {
             if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) || (e.ctrlKey && e.keyCode == 85)) {
                 return false;
