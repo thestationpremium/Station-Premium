@@ -79,8 +79,10 @@
             height: 100%; 
             border: none; 
             background: #000;
-            filter: contrast(1.08) brightness(1.03) saturate(1.15);
+            /* Filtros de melhoria de qualidade visual */
+            filter: contrast(1.1) brightness(1.05) saturate(1.2);
             image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
         }
 
         .footer { margin-top: 80px; text-align: center; padding: 40px; color: var(--text-dim); font-size: 0.8rem; }
@@ -151,6 +153,7 @@
     </div>
 
     <script>
+        /* Desativa popups agressivos de sites de stream */
         window.open = function() { return null; };
         window.alert = function() { return true; };
 
@@ -171,6 +174,7 @@
             document.body.style.overflow = 'auto';
         }
 
+        /* Anti-inspeção básico */
         document.onkeydown = function(e) {
             if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) || (e.ctrlKey && e.keyCode == 85)) {
                 return false;
