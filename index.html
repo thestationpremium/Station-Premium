@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="referrer" content="always">
-    <title>Sport Station | Premium Hub</title>
+    <meta name="referrer" content="no-referrer">
+    <title>Station+ | Premium Hub</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
     
@@ -29,11 +29,10 @@
             background-image: radial-gradient(circle at 10% 20%, rgba(90, 0, 255, 0.15) 0%, transparent 40%),
                               radial-gradient(circle at 90% 80%, rgba(255, 0, 0, 0.1) 0%, transparent 40%);
             color: var(--text-main); font-family: 'Inter', sans-serif; min-height: 100vh; padding: 40px 20px;
-            text-rendering: optimizeLegibility;
-            -webkit-font-smoothing: antialiased;
         }
 
         .container { max-width: 1000px; margin: 0 auto; }
+        
         header { text-align: center; margin-bottom: 60px; }
         header h1 { font-size: 3.5rem; font-weight: 900; background: linear-gradient(180deg, #fff 30%, #666 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: -2px; }
         header p { color: var(--eleven-color); font-size: 0.9rem; font-weight: 700; letter-spacing: 5px; text-transform: uppercase; margin-top: -10px; }
@@ -43,12 +42,13 @@
 
         .grid-channels { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 20px; }
 
+        /* ESTILO DOS CARDS ORIGINAL */
         .card { 
             background: var(--surface); backdrop-filter: blur(10px); border: 1px solid var(--glass-border); border-radius: 16px; 
             padding: 15px; cursor: pointer; transition: all 0.3s ease; color: white; text-decoration: none; display: flex; flex-direction: column;
-            will-change: transform;
         }
         .card:hover { transform: translateY(-5px); border-color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.08); }
+        
         .card.cinema:hover { border-bottom: 4px solid var(--cinema-color); }
         .card.sporttv:hover { border-bottom: 4px solid var(--sporttv-color); }
         .card.eleven:hover { border-bottom: 4px solid var(--eleven-color); }
@@ -61,25 +61,18 @@
         .lang-badge { position: absolute; top: 8px; left: 8px; width: 50px; z-index: 2; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5)); }
         .movie-thumb { width: 100%; height: 260px; background: #111; border-radius: 10px; object-fit: cover; display: block; }
 
+        /* PLAYER OVERLAY */
         #videoPlayer {
             display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.98); align-items: center; justify-content: center;
         }
         .modal-container { width: 95%; max-width: 1100px; height: 85vh; position: relative; background: #000; border-radius: 12px; overflow: hidden; border: 1px solid var(--glass-border); }
         
-        .iframe-shield {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 10001; background: transparent; cursor: pointer;
-        }
+        /* SHIELD ANTI-POPUP */
+        .iframe-shield { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10001; background: transparent; cursor: pointer; }
 
         .close-btn { position: absolute; top: 15px; right: 15px; background: #e61e25; color: #fff; padding: 8px 15px; border-radius: 5px; cursor: pointer; z-index: 10002; font-weight: bold; }
-        
-        iframe { 
-            width: 100%; 
-            height: 100%; 
-            border: none; 
-            background: #000;
-        }
+        iframe { width: 100%; height: 100%; border: none; background: #000; }
 
         .footer { margin-top: 80px; text-align: center; padding: 40px; color: var(--text-dim); font-size: 0.8rem; }
     </style>
@@ -91,37 +84,32 @@
 
         <div class="section-title">Cinema & Séries</div>
         <div class="grid-channels">
-            
-            <div class="card cinema" onclick="openPlayer('https://archive.org/embed/zootopia.-2.2025-pt-')">
+            <div class="card cinema" onclick="openPlayer('https://mixdrop.top/e/q191gdx8fe0omz')">
                 <div class="thumb-container">
                     <img src="https://iili.io/q9xtSfe.png" class="lang-badge">
                     <img src="https://iili.io/q9xZ7Z7.webp" class="movie-thumb">
                 </div>
                 <b>Zootopia 2</b><span>SUPER PREMIUM</span>
             </div>
-
-            <div class="card cinema" onclick="openPlayer('https://archive.org/embed/the-sponge-bob-movie-search-for-square-pants-2025-pt')">
+            <div class="card cinema" onclick="openPlayer('https://mixdrop.top/e/7kpkglv6td4rew1')">
                 <div class="thumb-container">
                     <img src="https://iili.io/q9xtSfe.png" class="lang-badge">
                     <img src="https://iili.io/q9xtBAQ.webp" class="movie-thumb">
                 </div>
                 <b>SpongeBob: O Filme</b><span>SUPER PREMIUM</span>
             </div>
-
-            <div class="card cinema" onclick="openPlayer('https://archive.org/embed/the-wrecking-crew-2026_202602')">
+            <div class="card cinema" onclick="openPlayer('https://mixdrop.top/e/vkzkedogi41rn')">
                 <div class="thumb-container">
                     <img src="https://iili.io/q95KstV.webp" class="movie-thumb">
                 </div>
                 <b>The Wrecking Crew</b><span>SUPER PREMIUM</span>
             </div>
-
-            <div class="card cinema" onclick="openPlayer('https://archive.org/embed/anaconda-2025-2')">
+            <div class="card cinema" onclick="openPlayer('https://mixdrop.top/e/679768zquv4gjv')">
                 <div class="thumb-container">
                     <img src="https://iili.io/q954K9j.webp" class="movie-thumb">
                 </div>
                 <b>Anaconda (2025)</b><span>SUPER PREMIUM</span>
             </div>
-
         </div>
 
         <div class="section-title">Sport TV</div>
@@ -152,48 +140,30 @@
         <div class="modal-container">
             <div class="close-btn" onclick="closePlayer()">FECHAR X</div>
             <div id="shield" class="iframe-shield" onclick="this.style.display='none'"></div>
-            <iframe id="videoFrame" 
-                src="" 
-                allow="autoplay; fullscreen; encrypted-media; picture-in-picture" 
-                allowfullscreen="true">
-            </iframe>
+            <iframe id="videoFrame" src="" allowfullscreen sandbox="allow-scripts allow-same-origin allow-forms allow-presentation"></iframe>
         </div>
     </div>
 
     <script>
-        // Bloqueia tentativas de abrir novas janelas (popups)
+        // Bloqueio de popups a nível de window
         window.open = function() { return null; };
 
         function openPlayer(url) {
             const frame = document.getElementById('videoFrame');
             const shield = document.getElementById('shield');
-            const player = document.getElementById('videoPlayer');
-            
-            frame.src = ''; // Limpa o frame anterior
-            
-            // Ativa o shield apenas para links externos (desporto). 
-            // Para Archive.org (filmes) o shield não é necessário, podes clicar direto.
-            if(url.includes('archive.org')) {
-                shield.style.display = 'none';
-            } else {
-                shield.style.display = 'block';
-            }
-
+            shield.style.display = 'block'; 
             frame.src = url;
-            player.style.display = 'flex';
-            document.body.style.overflow = 'hidden'; // Impede scroll ao ver filme
+            document.getElementById('videoPlayer').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
         }
 
         function closePlayer() {
-            const frame = document.getElementById('videoFrame');
-            const player = document.getElementById('videoPlayer');
-            
-            frame.src = 'about:blank'; // Mata o áudio do vídeo ao fechar
-            player.style.display = 'none';
+            document.getElementById('videoFrame').src = 'about:blank';
+            document.getElementById('videoPlayer').style.display = 'none';
             document.body.style.overflow = 'auto';
         }
 
-        // Bloqueia F12 e Ver Código Fonte
+        // Prevenção de inspeção básica
         document.onkeydown = function(e) {
             if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) || (e.ctrlKey && e.keyCode == 85)) {
                 return false;
