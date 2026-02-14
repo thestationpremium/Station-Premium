@@ -16,8 +16,6 @@
             --sporttv-color: #4b00ad;
             --eleven-color: #9d4edd; 
             --benfica-color: #ff0000; 
-            --sporting-color: #00874e;
-            --porto-color: #0055ff;
             --cinema-color: #ffcc00; 
             --text-main: #ffffff;
             --text-dim: #a0a0a0;
@@ -33,7 +31,7 @@
             color: var(--text-main); font-family: 'Inter', sans-serif; min-height: 100vh; padding: 40px 20px;
         }
 
-        .container { max-width: 1100px; margin: 0 auto; }
+        .container { max-width: 1000px; margin: 0 auto; }
         header { text-align: center; margin-bottom: 60px; }
         header h1 { font-size: 3.5rem; font-weight: 900; background: linear-gradient(180deg, #fff 30%, #666 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: -2px; }
         header p { color: var(--eleven-color); font-size: 0.9rem; font-weight: 700; letter-spacing: 5px; text-transform: uppercase; margin-top: -10px; }
@@ -41,10 +39,10 @@
         .section-title { font-size: 0.85rem; font-weight: 700; margin: 50px 0 25px; display: flex; align-items: center; gap: 15px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 2px; }
         .section-title::after { content: ""; height: 1px; flex-grow: 1; background: linear-gradient(90deg, var(--glass-border), transparent); }
 
-        .grid-channels { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 15px; }
+        .grid-channels { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 20px; }
 
         .card { 
-            background: var(--surface); backdrop-filter: blur(10px); border: 1px solid var(--glass-border); border-radius: 12px; 
+            background: var(--surface); backdrop-filter: blur(10px); border: 1px solid var(--glass-border); border-radius: 16px; 
             padding: 15px; cursor: pointer; transition: all 0.3s ease; color: white; text-decoration: none; display: flex; flex-direction: column;
         }
         .card:hover { transform: translateY(-5px); border-color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.08); }
@@ -52,28 +50,54 @@
         .card.sporttv:hover { border-bottom: 4px solid var(--sporttv-color); }
         .card.eleven:hover { border-bottom: 4px solid var(--eleven-color); }
         .card.benfica:hover { border-bottom: 4px solid var(--benfica-color); }
-        .card.sporting:hover { border-bottom: 4px solid var(--sporting-color); }
-        .card.porto:hover { border-bottom: 4px solid var(--porto-color); }
 
-        .card b { font-size: 1rem; margin-bottom: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .card span { font-size: 0.65rem; color: var(--text-dim); font-weight: 800; text-transform: uppercase; }
+        .card b { font-size: 1.1rem; margin-bottom: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .card span { font-size: 0.7rem; color: var(--text-dim); font-weight: 800; text-transform: uppercase; }
+
+        .thumb-container { position: relative; width: 100%; margin-bottom: 12px; }
+        .lang-badge { position: absolute; top: 8px; left: 8px; width: 50px; z-index: 2; }
+        .movie-thumb { width: 100%; height: 260px; background: #111; border-radius: 10px; object-fit: cover; display: block; }
 
         /* PLAYER MODAL */
         #videoPlayer {
             display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,1); align-items: center; justify-content: center;
+            background: #000; align-items: center; justify-content: center;
         }
         
-        .modal-container { width: 100%; height: 100%; position: relative; background: #000; overflow: hidden; }
+        .modal-container { 
+            width: 100%; 
+            height: 100%; 
+            position: relative; 
+            background: #000; 
+            overflow: hidden; 
+        }
 
-        .video-wrapper { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+        .video-wrapper {
+            position: absolute;
+            top: 0; 
+            left: 0;
+            width: 100%;
+            height: 100%; 
+            transition: all 0.2s ease;
+        }
 
-        iframe { width: 100%; height: 100%; border: none; }
+        iframe { 
+            width: 100%; 
+            height: 100%; 
+            border: none; 
+        }
 
         .close-btn { 
-            position: absolute; top: 20px; right: 20px; background: #e61e25; color: #fff; 
-            padding: 12px 24px; border-radius: 8px; cursor: pointer; z-index: 10005; font-weight: bold;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            position: absolute; 
+            top: 25px; 
+            right: 25px; 
+            background: #e61e25; 
+            color: #fff; 
+            padding: 10px 20px; 
+            border-radius: 5px; 
+            cursor: pointer; 
+            z-index: 10005; 
+            font-weight: bold;
         }
 
         .footer { margin-top: 80px; text-align: center; padding: 40px; color: var(--text-dim); font-size: 0.8rem; }
@@ -84,50 +108,66 @@
     <div class="container">
         <header><h1>Station+</h1><p>Premium Sport Hub</p></header>
 
-        <div class="section-title">Sport TV (Canais + Espelhos)</div>
+        <div class="section-title">Cinema & Séries</div>
         <div class="grid-channels">
-            <div class="card sporttv" onclick="openPlayer('https://sportzonline.click/channels/pt/sporttv1.php')"><b>Sport TV 1</b><span>Principal</span></div>
-            <div class="card sporttv" onclick="openPlayer('https://redecanais.li/player.php?id=sporttv1')"><b>Sport TV 1</b><span>Espelho</span></div>
-            <div class="card sporttv" onclick="openPlayer('https://sportzonline.click/channels/pt/sporttv2.php')"><b>Sport TV 2</b><span>Principal</span></div>
-            <div class="card sporttv" onclick="openPlayer('https://redecanais.li/player.php?id=sporttv2')"><b>Sport TV 2</b><span>Espelho</span></div>
-            <div class="card sporttv" onclick="openPlayer('https://sportzonline.click/channels/pt/sporttv3.php')"><b>Sport TV 3</b><span>Principal</span></div>
-            <div class="card sporttv" onclick="openPlayer('https://sportzonline.click/channels/pt/sporttv4.php')"><b>Sport TV 4</b><span>Principal</span></div>
-            <div class="card sporttv" onclick="openPlayer('https://sportzonline.click/channels/pt/sporttv5.php')"><b>Sport TV 5</b><span>Principal</span></div>
-            <div class="card sporttv" onclick="openPlayer('https://sportzonline.click/channels/pt/sporttv6.php')"><b>Sport TV 6</b><span>Principal</span></div>
+            <div class="card cinema" onclick="openPlayer('https://archive.org/embed/zootopia.-2.2025-pt-')">
+                <div class="thumb-container">
+                    <img src="https://iili.io/q9xtSfe.png" class="lang-badge">
+                    <img src="https://iili.io/q9xZ7Z7.webp" class="movie-thumb">
+                </div>
+                <b>Zootopia 2</b><span>SUPER PREMIUM</span>
+            </div>
+
+            <div class="card cinema" onclick="openPlayer('https://archive.org/embed/the-sponge-bob-movie-search-for-square-pants-2025-pt')">
+                <div class="thumb-container">
+                    <img src="https://iili.io/q9xtSfe.png" class="lang-badge">
+                    <img src="https://iili.io/q9xtBAQ.webp" class="movie-thumb">
+                </div>
+                <b>SpongeBob: O Filme</b><span>SUPER PREMIUM</span>
+            </div>
+
+            <div class="card cinema" onclick="openPlayer('https://archive.org/embed/the-wrecking-crew-2026_202602')">
+                <div class="thumb-container"><img src="https://iili.io/q95KstV.webp" class="movie-thumb"></div>
+                <b>The Wrecking Crew</b><span>SUPER PREMIUM</span>
+            </div>
+
+            <div class="card cinema" onclick="openPlayer('https://archive.org/embed/anaconda-2025-2')">
+                <div class="thumb-container"><img src="https://iili.io/q954K9j.webp" class="movie-thumb"></div>
+                <b>Anaconda (2025)</b><span>SUPER PREMIUM</span>
+            </div>
         </div>
 
-        <div class="section-title">DAZN Eleven Sports</div>
+        <div class="section-title">Sport TV</div>
         <div class="grid-channels">
-            <div class="card eleven" onclick="openPlayer('https://sportzonline.click/channels/pt/eleven1.php')"><b>DAZN Eleven 1</b><span>Principal</span></div>
-            <div class="card eleven" onclick="openPlayer('https://redecanais.li/player.php?id=eleven1')"><b>DAZN Eleven 1</b><span>Espelho</span></div>
-            <div class="card eleven" onclick="openPlayer('https://sportzonline.click/channels/pt/eleven2.php')"><b>DAZN Eleven 2</b><span>Link 1</span></div>
-            <div class="card eleven" onclick="openPlayer('https://sportzonline.click/channels/pt/eleven3.php')"><b>DAZN Eleven 3</b><span>Link 1</span></div>
-            <div class="card eleven" onclick="openPlayer('https://sportzonline.click/channels/pt/eleven4.php')"><b>DAZN Eleven 4</b><span>Link 1</span></div>
-            <div class="card eleven" onclick="openPlayer('https://sportzonline.click/channels/pt/eleven5.php')"><b>DAZN Eleven 5</b><span>Link 1</span></div>
-            <div class="card eleven" onclick="openPlayer('https://sportzonline.click/channels/pt/eleven6.php')"><b>DAZN Eleven 6</b><span>Link 1</span></div>
+            <div class="card sporttv" onclick="openPlayer('https://sportzonline.click/channels/pt/sporttv1.php')"><b>Sport TV 1</b><span>Premium Access</span></div>
+            <div class="card sporttv" onclick="openPlayer('https://sportzonline.click/channels/pt/sporttv2.php')"><b>Sport TV 2</b><span>Premium Access</span></div>
+            <div class="card sporttv" onclick="openPlayer('https://sportzonline.click/channels/pt/sporttv3.php')"><b>Sport TV 3</b><span>Premium Access</span></div>
+            <div class="card sporttv" onclick="openPlayer('https://sportzonline.click/channels/pt/sporttv4.php')"><b>Sport TV 4</b><span>Premium Access</span></div>
+            <div class="card sporttv" onclick="openPlayer('https://sportzonline.click/channels/pt/sporttv5.php')"><b>Sport TV 5</b><span>Premium Access</span></div>
         </div>
 
-        <div class="section-title">Canais de Clubes</div>
+        <div class="section-title">DAZN / Eleven Sports</div>
         <div class="grid-channels">
-            <div class="card benfica" onclick="openPlayer('https://sportzonline.click/channels/pt/btv.php')"><b>Benfica TV</b><span>Principal</span></div>
-            <div class="card benfica" onclick="openPlayer('https://redecanais.li/player.php?id=btv')"><b>Benfica TV</b><span>Espelho</span></div>
-            <div class="card sporting" onclick="openPlayer('https://sportzonline.click/channels/pt/sportingtv.php')"><b>Sporting TV</b><span>HD</span></div>
-            <div class="card porto" onclick="openPlayer('https://sportzonline.click/channels/pt/portotv.php')"><b>Porto Canal</b><span>HD</span></div>
+            <div class="card eleven" onclick="openPlayer('https://sportzonline.click/channels/pt/eleven1.php')"><b>Eleven 1</b><span>Premium Access</span></div>
+            <div class="card eleven" onclick="openPlayer('https://sportzonline.click/channels/pt/eleven2.php')"><b>Eleven 2</b><span>Premium Access</span></div>
+            <div class="card eleven" onclick="openPlayer('https://sportzonline.click/channels/pt/eleven3.php')"><b>Eleven 3</b><span>Premium Access</span></div>
         </div>
 
-        <div class="footer">&copy; 2026 Sport Station Hub. <br> Sandboxed Player for Ad-Block Experience.</div>
+        <div class="section-title">Clubes e Exclusivos</div>
+        <div class="grid-channels">
+            <div class="card benfica" onclick="openPlayer('https://sportzonline.click/channels/pt/btv.php')"><b>Benfica TV</b><span>Premium Access</span></div>
+        </div>
+
+        <div class="footer">&copy; 2026 Sport Station Hub.</div>
     </div>
 
     <div id="videoPlayer">
         <div class="modal-container">
-            <div class="close-btn" onclick="closePlayer()">FECHAR [X]</div>
+            <div class="close-btn" onclick="closePlayer()">FECHAR X</div>
             <div class="video-wrapper">
-                <iframe 
-                    id="videoFrame" 
-                    src="" 
-                    allow="autoplay; fullscreen" 
-                    allowfullscreen
-                    sandbox="allow-forms allow-pointer-lock allow-same-origin allow-scripts">
+                <iframe id="videoFrame" src="" 
+                        sandbox="allow-forms allow-pointer-lock allow-same-origin allow-scripts allow-top-navigation" 
+                        allow="autoplay; fullscreen" allowfullscreen>
                 </iframe>
             </div>
         </div>
@@ -137,7 +177,18 @@
         function openPlayer(url) {
             const frame = document.getElementById('videoFrame');
             const player = document.getElementById('videoPlayer');
+            const wrapper = document.querySelector('.video-wrapper');
             
+            // Lógica de corte: Se for Archive (filme), sobe o vídeo para esconder o título
+            if(url.includes('archive.org')) {
+                wrapper.style.top = '-45px';
+                wrapper.style.height = 'calc(100% + 90px)';
+            } else {
+                // Se for desporto, mostra o ecrã total normal
+                wrapper.style.top = '0';
+                wrapper.style.height = '100%';
+            }
+
             frame.src = url;
             player.style.display = 'flex';
             document.body.style.overflow = 'hidden';
@@ -150,6 +201,13 @@
             player.style.display = 'none';
             document.body.style.overflow = 'auto';
         }
+
+        // Bloqueio de teclas de inspeção
+        document.onkeydown = function(e) {
+            if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) || (e.ctrlKey && e.keyCode == 85)) {
+                return false;
+            }
+        };
     </script>
 </body>
 </html>
