@@ -31,7 +31,7 @@
             color: var(--text-main); font-family: 'Inter', sans-serif; min-height: 100vh; padding: 40px 20px;
         }
 
-        .container { max-width: 1000px; margin: 0 auto; position: relative; }
+        .container { max-width: 1100px; margin: 0 auto; position: relative; }
         
         header { text-align: center; margin-bottom: 60px; }
         header h1 { font-size: 3.5rem; font-weight: 900; background: linear-gradient(180deg, #fff 30%, #666 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: -2px; }
@@ -40,62 +40,46 @@
         .section-title { font-size: 0.85rem; font-weight: 700; margin: 50px 0 25px; display: flex; align-items: center; gap: 15px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 2px; }
         .section-title::after { content: ""; height: 1px; flex-grow: 1; background: linear-gradient(90deg, var(--glass-border), transparent); }
 
-        /* CARROSSEL DE FILMES */
-        .slider-wrapper { position: relative; display: flex; align-items: center; }
-        
-        .grid-channels.movie-slider { 
-            display: flex; 
-            overflow-x: auto; 
-            scroll-behavior: smooth; 
-            gap: 20px; 
-            padding: 10px 5px;
-            scrollbar-width: none; /* Esconde scroll no Firefox */
-        }
-        .grid-channels.movie-slider::-webkit-scrollbar { display: none; } /* Esconde scroll no Chrome */
+        /* CONTENTOR DO CARROSSEL */
+        .carousel-wrapper { position: relative; display: flex; align-items: center; }
 
-        .slider-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(255,255,255,0.1);
-            border: 1px solid var(--glass-border);
-            color: white;
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            cursor: pointer;
-            z-index: 10;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            backdrop-filter: blur(10px);
-            transition: 0.3s;
+        .horizontal-scroll {
+            display: flex; gap: 20px; overflow-x: auto; scroll-behavior: smooth;
+            scrollbar-width: none; padding: 10px 0; width: 100%;
         }
-        .slider-btn:hover { background: var(--cinema-color); color: black; border-color: var(--cinema-color); }
-        .btn-prev { left: -25px; }
-        .btn-next { right: -25px; }
+        .horizontal-scroll::-webkit-scrollbar { display: none; }
 
-        /* GRID NORMAL PARA DESPORTO */
+        /* SETAS */
+        .nav-btn {
+            position: absolute; top: 50%; transform: translateY(-50%);
+            width: 45px; height: 45px; background: rgba(255,255,255,0.1);
+            border: 1px solid var(--glass-border); color: white; border-radius: 50%;
+            cursor: pointer; z-index: 10; display: flex; align-items: center; justify-content: center;
+            backdrop-filter: blur(10px); transition: 0.3s; font-weight: bold;
+        }
+        .nav-btn:hover { background: white; color: black; }
+        .prev { left: -25px; }
+        .next { right: -25px; }
+
         .grid-channels { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 20px; }
 
+        /* CARDS */
         .card { 
             background: var(--surface); backdrop-filter: blur(10px); border: 1px solid var(--glass-border); border-radius: 16px; 
             padding: 15px; cursor: pointer; transition: all 0.3s ease; color: white; text-decoration: none; display: flex; flex-direction: column;
-            min-width: 200px; /* Largura fixa para o slider funcionar */
+            min-width: 200px; /* Largura fixa para o carrossel */
         }
         .card:hover { transform: translateY(-5px); border-color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.08); }
-        
+        .card b { font-size: 1.1rem; margin-bottom: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .card span { font-size: 0.7rem; color: var(--text-dim); font-weight: 800; text-transform: uppercase; }
+
         .card.cinema:hover { border-bottom: 4px solid var(--cinema-color); }
         .card.sporttv:hover { border-bottom: 4px solid var(--sporttv-color); }
         .card.eleven:hover { border-bottom: 4px solid var(--eleven-color); }
         .card.benfica:hover { border-bottom: 4px solid var(--benfica-color); }
 
-        .card b { font-size: 1.1rem; margin-bottom: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .card span { font-size: 0.7rem; color: var(--text-dim); font-weight: 800; text-transform: uppercase; }
-
         .thumb-container { position: relative; width: 100%; margin-bottom: 12px; }
-        .lang-badge { position: absolute; top: 8px; left: 8px; width: 50px; z-index: 2; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5)); }
+        .lang-badge { position: absolute; top: 8px; left: 8px; width: 50px; z-index: 2; }
         .movie-thumb { width: 100%; height: 260px; background: #111; border-radius: 10px; object-fit: cover; display: block; }
 
         /* PLAYER */
@@ -104,9 +88,8 @@
             background: rgba(0,0,0,0.98); align-items: center; justify-content: center;
         }
         .modal-container { width: 95%; max-width: 1100px; height: 85vh; position: relative; background: #000; border-radius: 12px; overflow: hidden; border: 1px solid var(--glass-border); }
-        .iframe-shield { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10001; background: transparent; cursor: pointer; }
         .close-btn { position: absolute; top: 15px; right: 15px; background: #e61e25; color: #fff; padding: 8px 15px; border-radius: 5px; cursor: pointer; z-index: 10002; font-weight: bold; }
-        iframe { width: 100%; height: 100%; border: none; background: #000; }
+        iframe { width: 100%; height: 100%; border: none; }
 
         .footer { margin-top: 80px; text-align: center; padding: 40px; color: var(--text-dim); font-size: 0.8rem; }
     </style>
@@ -118,16 +101,16 @@
 
         <div class="section-title">Cinema & Séries</div>
         
-        <div class="slider-wrapper">
-            <button class="slider-btn btn-prev" onclick="scrollSlider(-220)">‹</button>
+        <div class="carousel-wrapper">
+            <button class="nav-btn prev" onclick="scrollCarousel(-220)">&#10094;</button>
             
-            <div class="grid-channels movie-slider" id="movieSlider">
+            <div class="horizontal-scroll" id="movieCarousel">
                 <div class="card cinema" onclick="openPlayer('https://archive.org/embed/zootopia.-2.2025-pt_202602')">
                     <div class="thumb-container">
                         <img src="https://iili.io/q9xtSfe.png" class="lang-badge">
                         <img src="https://iili.io/q9xZ7Z7.webp" class="movie-thumb">
                     </div>
-                    <b>Zootopia 2</b><span>NOVO 2026</span>
+                    <b>Zootopia 2</b><span>SUPER PREMIUM</span>
                 </div>
 
                 <div class="card cinema" onclick="openPlayer('https://archive.org/embed/the-sponge-bob-movie-search-for-square-pants-2025-pt')">
@@ -135,46 +118,45 @@
                         <img src="https://iili.io/q9xtSfe.png" class="lang-badge">
                         <img src="https://iili.io/q9xtBAQ.webp" class="movie-thumb">
                     </div>
-                    <b>SpongeBob (2025)</b><span>PREMIUM</span>
+                    <b>SpongeBob (2025)</b><span>SUPER PREMIUM</span>
                 </div>
 
                 <div class="card cinema" onclick="openPlayer('https://archive.org/embed/the-wrecking-crew-2026_202602')">
                     <div class="thumb-container">
                         <img src="https://iili.io/q95KstV.webp" class="movie-thumb">
                     </div>
-                    <b>The Wrecking Crew</b><span>ESTREIA 2026</span>
+                    <b>The Wrecking Crew</b><span>SUPER PREMIUM</span>
                 </div>
 
                 <div class="card cinema" onclick="openPlayer('https://archive.org/embed/anaconda-2025-2')">
                     <div class="thumb-container">
                         <img src="https://iili.io/q954K9j.webp" class="movie-thumb">
                     </div>
-                    <b>Anaconda (2025)</b><span>LANÇAMENTO</span>
+                    <b>Anaconda (2025)</b><span>SUPER PREMIUM</span>
+                </div>
+
+                <div class="card cinema" onclick="alert('Brevemente')">
+                    <div class="thumb-container">
+                        <div style="height:260px; background:#111; border-radius:10px; display:flex; align-items:center; justify-content:center;">EM BREVE</div>
+                    </div>
+                    <b>Novo Filme</b><span>SÉRIE</span>
                 </div>
             </div>
 
-            <button class="slider-btn btn-next" onclick="scrollSlider(220)">›</button>
+            <button class="nav-btn next" onclick="scrollCarousel(220)">&#10095;</button>
         </div>
 
         <div class="section-title">Sport TV</div>
         <div class="grid-channels">
-            <div class="card sporttv" onclick="openPlayer('https://sportzonline.click/channels/pt/sporttv1.php')"><b>Sport TV 1</b><span>Directo</span></div>
-            <div class="card sporttv" onclick="openPlayer('https://sportzonline.click/channels/pt/sporttv2.php')"><b>Sport TV 2</b><span>Directo</span></div>
-            <div class="card sporttv" onclick="openPlayer('https://sportzonline.click/channels/pt/sporttv3.php')"><b>Sport TV 3</b><span>Directo</span></div>
-            <div class="card sporttv" onclick="openPlayer('https://sportzonline.click/channels/pt/sporttv4.php')"><b>Sport TV 4</b><span>Directo</span></div>
-            <div class="card sporttv" onclick="openPlayer('https://sportzonline.click/channels/pt/sporttv5.php')"><b>Sport TV 5</b><span>Directo</span></div>
+            <div class="card sporttv" onclick="openPlayer('https://sportzonline.click/channels/pt/sporttv1.php')"><b>Sport TV 1</b><span>Premium</span></div>
+            <div class="card sporttv" onclick="openPlayer('https://sportzonline.click/channels/pt/sporttv2.php')"><b>Sport TV 2</b><span>Premium</span></div>
+            <div class="card sporttv" onclick="openPlayer('https://sportzonline.click/channels/pt/sporttv3.php')"><b>Sport TV 3</b><span>Premium</span></div>
         </div>
 
         <div class="section-title">Eleven Sports</div>
         <div class="grid-channels">
-            <div class="card eleven" onclick="openPlayer('https://sportzonline.click/channels/pt/eleven1.php')"><b>Eleven 1</b><span>Directo</span></div>
-            <div class="card eleven" onclick="openPlayer('https://sportzonline.click/channels/pt/eleven2.php')"><b>Eleven 2</b><span>Directo</span></div>
-            <div class="card eleven" onclick="openPlayer('https://sportzonline.click/channels/pt/eleven3.php')"><b>Eleven 3</b><span>Directo</span></div>
-        </div>
-
-        <div class="section-title">Canais de Clube</div>
-        <div class="grid-channels">
-            <div class="card benfica" onclick="openPlayer('https://sportzonline.click/channels/pt/btv.php')"><b>Benfica TV</b><span>Exclusivo</span></div>
+            <div class="card eleven" onclick="openPlayer('https://sportzonline.click/channels/pt/eleven1.php')"><b>Eleven 1</b><span>Premium</span></div>
+            <div class="card eleven" onclick="openPlayer('https://sportzonline.click/channels/pt/eleven2.php')"><b>Eleven 2</b><span>Premium</span></div>
         </div>
 
         <div class="footer">&copy; 2026 Sport Station Hub.</div>
@@ -183,21 +165,18 @@
     <div id="videoPlayer">
         <div class="modal-container">
             <div class="close-btn" onclick="closePlayer()">FECHAR X</div>
-            <div id="shield" class="iframe-shield" onclick="this.style.display='none'"></div>
             <iframe id="videoFrame" src="" allowfullscreen sandbox="allow-scripts allow-same-origin allow-forms allow-presentation"></iframe>
         </div>
     </div>
 
     <script>
-        // Função para mover o slider de filmes
-        function scrollSlider(distance) {
-            document.getElementById('movieSlider').scrollBy({ left: distance, behavior: 'smooth' });
+        // Função para as setas funcionarem
+        function scrollCarousel(distance) {
+            document.getElementById('movieCarousel').scrollBy({ left: distance, behavior: 'smooth' });
         }
 
         function openPlayer(url) {
             const frame = document.getElementById('videoFrame');
-            const shield = document.getElementById('shield');
-            shield.style.display = 'block'; 
             frame.src = url;
             document.getElementById('videoPlayer').style.display = 'flex';
             document.body.style.overflow = 'hidden';
@@ -208,12 +187,6 @@
             document.getElementById('videoPlayer').style.display = 'none';
             document.body.style.overflow = 'auto';
         }
-
-        document.onkeydown = function(e) {
-            if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) || (e.ctrlKey && e.keyCode == 85)) {
-                return false;
-            }
-        };
     </script>
 </body>
 </html>
